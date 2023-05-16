@@ -27,8 +27,10 @@ jobs:
       # mint for dependencies
       - uses: irgaly/setup-mint@v1
       # Runs a single command using the runners shell
+      - name: Install xcodes
+        run: brew install xcodesorg/made/xcodes
       - name: Select Xcode
-        run: fastlane run xcodes select_for_current_build_only:true
+        run: bundle exec fastlane run xcodes select_for_current_build_only:true
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
