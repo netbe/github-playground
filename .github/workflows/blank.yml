@@ -24,7 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      # mint for dependencies
+      - uses: irgaly/setup-mint@v1
       # Runs a single command using the runners shell
       - name: Select Xcode
         run: fastlane run xcodes select_for_current_build_only:true
