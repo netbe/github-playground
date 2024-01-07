@@ -18,19 +18,21 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: macos-latest
+    runs-on: macos-13
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      # mint for dependencies
-      - uses: irgaly/setup-mint@v1
-      # Runs a single command using the runners shell
-      - name: Install xcodes
-        run: brew install xcodesorg/made/xcodes
-      - name: Select Xcode
-        run: fastlane run xcodes select_for_current_build_only:true
+      
+      - name: Retrieve Xcode version
+        run: |
+          echo "XCODE_VERSION=$(cat .xcode-version)" >> $GITHUB_OUTPUT
+        id: xcode-version
+
+      - uses: maxim-lobanov/setup-xcode@v1.5.1
+        with:
+          xcode-version: ${{ steps.xcode-version.outputs.XCODE_VERSION }}
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
