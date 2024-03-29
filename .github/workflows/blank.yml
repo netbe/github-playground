@@ -47,6 +47,7 @@ jobs:
         with:
           name: changelog
           path: changelog.md
+          compression-level: 0
       - name: Expose url of file
         run: echo "changelog-url=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
   log_url:
@@ -54,4 +55,4 @@ jobs:
     needs: log
     steps:
       - name: Output artifact url
-        run:  echo 'Artifact URL is ${{ needs.log.output.changelog-url }}'
+        run:  echo 'Artifact URL is ${{ needs.log.outputs.changelog-url }}'
