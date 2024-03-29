@@ -58,6 +58,7 @@ jobs:
         run:  echo 'Artifact URL is ${{ needs.log.outputs.changelog-url }}'
 
   job1:
+    runs-on: macos-13
     outputs:
       myoutput: ${{ steps.step1.outputs.myoutput }}
     
@@ -68,6 +69,7 @@ jobs:
         echo "myoutput='hello world'" >> $GITHUB_OUTPUT
 
   job2:
+    runs-on: macos-13
     needs: job1
 
     steps:
