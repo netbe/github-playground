@@ -35,6 +35,8 @@ jobs:
           xcode-version: ${{ steps.xcode-version.outputs.XCODE_VERSION }}
   log:
     runs-on: macos-13
+    outputs:
+      changelog-url: ${{ steps.expose-url.outputs.changelog }}
     steps:
       # Runs a set of commands using the runners shell
       - name: Generate file
@@ -49,7 +51,8 @@ jobs:
           path: changelog.md
           compression-level: 0
       - name: Expose url of file
-        run: echo "changelog-url=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
+        id: expose-url
+        run: echo "changelog=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
   log_url:
     runs-on: macos-13
     needs: log
