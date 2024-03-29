@@ -42,13 +42,16 @@ jobs:
           date > changelog.md
           echo "hello" >> changelog.md
       - name: Upload file
+        id: upload-file
         uses: actions/upload-artifact@v4
         with:
           name: changelog
           path: changelog.md
+      - name: Expose url of file
+        run: echo "changelog-url=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
   log_url:
     runs-on: macos-13
     needs: log
     steps:
       - name: Output artifact url
-        run:  echo 'Artifact URL is ${{ log.steps.artifact-upload-step.outputs.artifact-url }}'
+        run:  echo 'Artifact URL is ${{ needs.log.output.changelog-url }}'
