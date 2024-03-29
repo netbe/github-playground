@@ -33,9 +33,22 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1.5.1
         with:
           xcode-version: ${{ steps.xcode-version.outputs.XCODE_VERSION }}
-
+  log:
+    runs-on: macos-13
+    steps:
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Generate file
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          date > changelog.md
+          echo "hello" >> changelog.md
+      - name: Upload file
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: changelog.md
+  log_url:
+    runs-on: macos-13
+    needs: log
+    steps:
+      - name: Output artifact url
+        run:  echo 'Artifact URL is ${{ log.steps.artifact-upload-step.outputs.artifact-url }}'
