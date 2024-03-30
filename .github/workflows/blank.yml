@@ -47,8 +47,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Generate file
         run: |
-          date > changelog.md
-          echo "hello" >> changelog.md
+          date > ${{ steps.build-number.outputs.file_path }}
+          echo "hello" >> ${{ steps.build-number.outputs.file_path }}
       - name: Upload file
         id: upload-file
         uses: actions/upload-artifact@v4
