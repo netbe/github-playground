@@ -42,7 +42,7 @@ jobs:
         id: build-number
         run: |
           build_number=`curl -H "Accept: text/plain" -X POST -d '' "https://incrementator.appspot.com/api/v1/code/iqZCQLhyVYKxWVzecuQHXBbhfJJJdtoxUXvtMzn99MoFlJIW/increment"`
-          echo file_path='changelog-#{build_number}.md' >> $GITHUB_OUTPUT
+          echo file_path='changelog-${build_number}.md' >> $GITHUB_OUTPUT
 
       # Runs a set of commands using the runners shell
       - name: Generate file
