@@ -33,6 +33,8 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1.5.1
         with:
           xcode-version: ${{ steps.xcode-version.outputs.XCODE_VERSION }}
+      - name: bundler install
+        run: bundle install
       - id: build
         run: bundle exec fastlane build
   log:
