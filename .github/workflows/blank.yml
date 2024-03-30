@@ -38,6 +38,7 @@ jobs:
     outputs:
       changelog-url: ${{ steps.expose-url.outputs.changelog }}
       sha256: ${{ steps.genfile.outputs.sha256 }}
+      
     steps:
       - name: build number
         id: build-number
@@ -67,11 +68,10 @@ jobs:
     runs-on: macos-13
     needs: log
     steps:
-      - name: Output artifact url
-        run:  echo 'Artifact URL is ${{ needs.log.outputs.changelog-url }}'
-      - name: Output sha256
-        run:  echo 'sha256: ${{ needs.log.outputs.sha256 }}'
-
+    - name: Output artifact url
+      run:  echo 'Artifact URL is ${{ needs.log.outputs.changelog-url }}'
+    - name: Output sha256
+      run:  echo "sha256 ${{ needs.log.outputs.sha256 }}"
   job1:
     runs-on: macos-13
     outputs:
