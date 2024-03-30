@@ -42,7 +42,7 @@ jobs:
         id: build-number
         run: |
           build_number=`curl -H "Accept: text/plain" -X POST -d '' "https://incrementator.appspot.com/api/v1/code/iqZCQLhyVYKxWVzecuQHXBbhfJJJdtoxUXvtMzn99MoFlJIW/increment"`
-          echo BUILD_NUMBER=#{build_number} >> $GITHUB_OUTPUT
+          echo file_path='changelog-#{build_number}.md' >> $GITHUB_OUTPUT
 
       # Runs a set of commands using the runners shell
       - name: Generate file
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: changelog
-          path: 'changelog-${{ steps.build-number.outputs.BUILD_NUMBER }}.md'
+          path: ${{ steps.build-number.outputs.file_path }}
           if-no-files-found: error
       - name: Expose url of file
         id: expose-url
