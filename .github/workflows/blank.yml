@@ -52,7 +52,7 @@ jobs:
         run: |
           date > ${{ steps.build-number.outputs.file_path }}
           echo "hello" >> ${{ steps.build-number.outputs.file_path }}
-          sha256=`shasum -a 256 ${{ steps.build-number.outputs.file_path }}`
+          sha256=`shasum -a 256 ${{ steps.build-number.outputs.file_path }} | awk '{ print $1 }'`
           echo sha256=${sha256} >> $GITHUB_OUTPUT
       - name: Upload file
         id: upload-file
