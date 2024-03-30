@@ -54,8 +54,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: changelog
-          path: "changelog-${{ steps.build-number.outputs.BUILD_NUMBER }}.md"
-          compression-level: 0
+          path: 'changelog-${{ steps.build-number.outputs.BUILD_NUMBER }}.md'
+          if-no-files-found: error
       - name: Expose url of file
         id: expose-url
         run: echo "changelog=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
