@@ -37,6 +37,7 @@ jobs:
     runs-on: macos-13
     outputs:
       changelog-url: ${{ steps.expose-url.outputs.changelog }}
+      sha256: ${{ steps.genfile.outputs.sha256 }}
     steps:
       - name: build number
         id: build-number
@@ -46,9 +47,12 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Generate file
+        id: genfile
         run: |
           date > ${{ steps.build-number.outputs.file_path }}
           echo "hello" >> ${{ steps.build-number.outputs.file_path }}
+          sha256=`shasum -a 256 ${{ steps.build-number.outputs.file_path }}`
+          echo sha256=${sha256} >> $GITHUB_OUTPUT
       - name: Upload file
         id: upload-file
         uses: actions/upload-artifact@v4
@@ -59,12 +63,14 @@ jobs:
       - name: Expose url of file
         id: expose-url
         run: echo "changelog=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
-  log_url:
+  result:
     runs-on: macos-13
     needs: log
     steps:
       - name: Output artifact url
         run:  echo 'Artifact URL is ${{ needs.log.outputs.changelog-url }}'
+      - name: Output sha256
+        run:  echo 'sha256: ${{ needs.log.outputs.sha256 }}'
 
   job1:
     runs-on: macos-13
