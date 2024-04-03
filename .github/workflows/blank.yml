@@ -32,14 +32,21 @@ jobs:
         run: |
           echo "XCODE_VERSION=$(cat .xcode-version)" >> $GITHUB_OUTPUT
         id: xcode-version
-      - name: test
-        id: plan
-        shell: bash
+      - name: create string
         run: |
-          out="hello \n world"
-          echo "out=$out" >> $GITHUB_OUTPUT
-      - name: Use multiline string variable
-        run: echo "${{ env.MULTILINE_STRING }}"
+          MY_STRING=$(cat << EOF
+          first line
+          second line
+          third line
+          EOF
+          )
+          echo "MY_STRING<<EOF" >> $GITHUB_ENV
+          echo "$MY_STRING" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        id: my_string
+      - name: display string
+        run: |
+          echo "The string is: ${{ env.MY_STRING }}"
       - uses: maxim-lobanov/setup-xcode@v1.5.1
         with:
           xcode-version: ${{ steps.xcode-version.outputs.XCODE_VERSION }}
