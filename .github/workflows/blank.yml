@@ -30,7 +30,16 @@ jobs:
         run: |
           echo "XCODE_VERSION=$(cat .xcode-version)" >> $GITHUB_OUTPUT
         id: xcode-version
-
+      - name: Set multiline string variable
+        run: |
+          echo "::set-env name=MULTILINE_STRING::$(cat <<EOF
+          This is a multi-line string.
+          It spans multiple lines.
+          You can include commands or text here.
+          EOF
+          )"
+      - name: Use multiline string variable
+        run: echo "$MULTILINE_STRING"
       - uses: maxim-lobanov/setup-xcode@v1.5.1
         with:
           xcode-version: ${{ steps.xcode-version.outputs.XCODE_VERSION }}
