@@ -37,7 +37,9 @@ jobs:
           MY_STRING=$(cat << EOF
           first line
           second line
+          
           `third line`
+          {{ env.XCODE_VERSION }}
           EOF
           )
           echo "MY_STRING<<EOF" >> $GITHUB_ENV
