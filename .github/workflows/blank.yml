@@ -32,13 +32,9 @@ jobs:
         id: xcode-version
       - name: Set multiline string variable
         run: |
-          {
-            echo 'MULTILINE_STRING<<EOF'
-            This is a multi-line string.
-            It spans multiple lines.
-            You can include commands or text here.
-            echo EOF
-          } >> "$GITHUB_ENV"
+          echo 'MULTILINE_STRING<<EOF' >> $GITHUB_ENV
+          curl https://example.lab >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: Use multiline string variable
         run: echo "${{ env.MULTILINE_STRING }}"
       - uses: maxim-lobanov/setup-xcode@v1.5.1
