@@ -84,6 +84,15 @@ jobs:
           name: changelog
           path: ${{ steps.build-number.outputs.file_path }}
           if-no-files-found: error
+      - name: remove changelog
+        run: rm ${{ steps.build-number.outputs.file_path }}
+      - name: Download file
+        id: download-file
+        uses: actions/download-artifact@v4
+        with:
+          name: changelog
+      - name: rename file
+        run: mv changelog CHANGELOG.md
       - name: Expose url of file
         id: expose-url
         run: echo "changelog=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
