@@ -92,7 +92,7 @@ jobs:
         with:
           name: changelog
       - name: rename file
-        run: mv ${{ steps.build-number.outputs.file_path }} CHANGELOG.md
+        run: mv ${{ steps.download-file.outputs.download-path }} CHANGELOG.md
 
       - name: echo file
         run: cat CHANGELOG.md
