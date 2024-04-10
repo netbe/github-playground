@@ -92,7 +92,10 @@ jobs:
         with:
           name: changelog
       - name: rename file
-        run: mv changelog CHANGELOG.md
+        run: mv ${{ steps.build-number.outputs.file_path }} CHANGELOG.md
+
+      - name: echo file
+        run: cat CHANGELOG.md
       - name: Expose url of file
         id: expose-url
         run: echo "changelog=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
