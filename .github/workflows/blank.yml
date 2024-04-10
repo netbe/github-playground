@@ -91,6 +91,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: changelog
+          path: test
       - name: rename file
         run: mv ${{ steps.download-file.outputs.download-path }} CHANGELOG.md
 
