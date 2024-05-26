@@ -1,4 +1,0 @@
-develop:
-   - base-branch: 'develop'
-release:
-  - base-branch: 'main'
