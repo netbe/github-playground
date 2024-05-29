@@ -2,7 +2,7 @@
 name: Auto assign author to PR
 on:
   pull_request_target:
-    types: [ opened, synchronised ]
+    types: [ opened, edited, synchronize ]
 
 jobs:
   assign-author:
