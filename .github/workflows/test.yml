@@ -1,0 +1,15 @@
+name: Test worflow
+
+on: 
+  workflow_dispatch:
+
+permissions: 
+  checks: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+     steps:
+      - name: echo
+        run: |
+          echo "Hello"
