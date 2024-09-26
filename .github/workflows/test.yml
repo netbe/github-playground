@@ -12,13 +12,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: (github.event.action != 'edited' || (
-      !contains(github.event.changes, 'title') &&
-      !contains(github.event.changes, 'body') &&
-      !contains(github.event.changes, 'assignees') &&
-      !contains(github.event.changes, 'reviewers') &&
-      !contains(github.event.changes, 'labels')
-     )) && github.event.pull_request.draft == false
+    if: github.event.action == 'edited' && contains(github.event.changes, 'body')
     steps:
       - name: echo
         run: |
