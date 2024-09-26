@@ -1,26 +1,24 @@
 on:
-    schedule:
-    #   - cron: '0 21 * * *' # Runs every day at 21:00 UTC
-      - cron: '* * * * *' # Runs every day at 21:00 UTC
-    push:
-      branches:
-        - develop
+  schedule:
+  #   - cron: '0 21 * * *' # Runs every day at 21:00 UTC
+    - cron: '* * * * *' # Runs every day at 21:00 UTC
+      push:
+        branches:
+          - develop
+jobs:
+  test:
+    name: Run Tests
+    runs-on: macos-latest
   
-  jobs:
-    test:
-      name: Run Tests
-      runs-on: macos-latest
-  
-      steps:
-        - name: Check out code
-          uses: actions/checkout@v4
-          with:
-            ref: develop
-        - run: |
-            echo "Run cron"
-            ls
-
-        - uses: ./.github/workflows/list_files.yml
-            with:
-                  fastlane_action: appstore_col_1_restricted
-                secrets: inherit
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+      - run: |
+        echo "Run cron"
+        ls
+      - uses: ./.github/workflows/list_files.yml
+        with:
+          fastlane_action: appstore_col_1_restricted
+          secrets: inherit

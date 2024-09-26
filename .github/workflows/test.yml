@@ -1,0 +1,25 @@
+name: Test worflow develop PR
+
+on: 
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, synchronize, edited, ready_for_review ]
+    branches: [ 'develop' ]
+
+permissions: 
+  checks: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: (github.event.action != 'edited' || (
+      !contains(github.event.changes, 'title') &&
+      !contains(github.event.changes, 'body') &&
+      !contains(github.event.changes, 'assignees') &&
+      !contains(github.event.changes, 'reviewers') &&
+      !contains(github.event.changes, 'labels')
+     )) && github.event.pull_request.draft == false
+    steps:
+      - name: echo
+        run: |
+          echo "Hello main ${{ github.event.changes }}"
