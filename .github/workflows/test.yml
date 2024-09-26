@@ -22,4 +22,4 @@ jobs:
     steps:
       - name: echo
         run: |
-          echo "Hello main this was not a description event ${{ fromJSON(github.event.changes) }}"
+          echo "Hello main this was not a description event ${{ fromJSON(${{ github.event.changes }}) }}"
