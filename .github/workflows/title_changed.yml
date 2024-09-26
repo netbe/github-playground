@@ -1,0 +1,19 @@
+name: title change
+
+on: 
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, edited]
+    branches: [ 'main' ]
+
+permissions: 
+  checks: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: github.event.changes.title != null
+    steps:
+      - name: echo
+        run: |
+          echo "title is : ${{ github.event.pull_request.title }}"
