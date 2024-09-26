@@ -23,4 +23,4 @@ jobs:
     steps:
       - name: echo
         run: |
-          echo "Hello from main"
+          echo "Hello from mainv"
