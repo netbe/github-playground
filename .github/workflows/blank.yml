@@ -55,7 +55,7 @@ jobs:
       - name: bundler install
         run: bundle install
       - id: build
-        run: bundle exec fastlane build
+        run: bundle exec fastlane test
       - name: Find all .xcresult files
         if: always()
         id: find-xcresults
