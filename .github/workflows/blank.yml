@@ -75,7 +75,7 @@ jobs:
   analyze-xcresults:
     needs: build
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     strategy:
       matrix:
         xcresult_file: ${{ fromJson(needs.build.outputs.xcresult_files) }}
