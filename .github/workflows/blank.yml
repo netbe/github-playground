@@ -71,6 +71,8 @@ jobs:
       matrix:
         xcresult_file: ${{ fromJson(needs.build.outputs.xcresult_files) }}
     steps:
+      - name: test file
+        run: ls -al ${{ matrix].xcresult_file }}
       - name: Analyze .xcresult file
         uses: kronenthaler/analyze-xcoderesults-action@0.1.9
         with:
