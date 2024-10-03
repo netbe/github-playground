@@ -69,6 +69,7 @@ jobs:
           
   analyze-xcresults:
     needs: build
+    if: always()
     runs-on: ubuntu-latest
     strategy:
       matrix:

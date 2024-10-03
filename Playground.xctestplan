@@ -26,15 +26,6 @@
         "identifier" : "012444582BB79F4C004E9675",
         "name" : "PlaygroundTests"
       }
-    },
-    {
-      "enabled" : false,
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:Playground.xcodeproj",
-        "identifier" : "012444622BB79F4C004E9675",
-        "name" : "PlaygroundUITests"
-      }
     }
   ],
   "version" : 1
