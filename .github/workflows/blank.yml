@@ -63,6 +63,9 @@ jobs:
           # Find all .xcresult directories and convert them to a JSON array
           files=`find artifacts/ -type d -name "*.xcresult" | jq -R . | jq -s .`
           echo xcresult_files=${files} >> $GITHUB_OUTPUT
+      - name: Debug Print xcresult files
+        run: |
+          echo "xcresult files: ${{ steps.find-xcresults.outputs.xcresult_files }}"
           
   analyze-xcresults:
     needs: build
