@@ -57,7 +57,7 @@ jobs:
       - id: build
         run: bundle exec fastlane test
       - name: Find all .xcresult files
-        if: always()
+        if: ${{ always() && github.event_name == 'pull_request' }}
         id: find-xcresults
         run: |
           # Find all .xcresult directories and convert them to a JSON array
@@ -74,7 +74,7 @@ jobs:
           path: artifacts/**/*.xcresult  # Adjust this if necessary
   analyze-xcresults:
     needs: build
-    if: always()
+    if: ${{ always() && github.event_name == 'pull_request' }}
     runs-on: macos-14
     strategy:
       matrix:
