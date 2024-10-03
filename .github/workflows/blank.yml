@@ -21,7 +21,7 @@ jobs:
     runs-on: macos-14  
     outputs:
       out: '${{ steps.test.outputs.out }}'
-
+      xcresult_files: ${{ steps.find-xcresults.outputs.xcresult_files }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -56,6 +56,26 @@ jobs:
         run: bundle install
       - id: build
         run: bundle exec fastlane build
+      - name: Find all .xcresult files
+        if: always()
+        id: find-xcresults
+        run: |
+          # Find all .xcresult directories and convert them to a JSON array
+          echo "::set-output name=xcresult_files::$(find artifacts/ -type d -name "*.xcresult" | jq -R . | jq -s .)"
+          
+  analyze-xcresults:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        xcresult_file: ${{ fromJson(needs.build.outputs.xcresult_files) }}
+    steps:
+      - name: Analyze .xcresult file
+        uses: kronenthaler/analyze-xcoderesults-action@0.1.9
+        with:
+          results: ${{ matrix.xcresult_file }}
+          warningAnnotations: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   log:
     runs-on: macos-14
     outputs:
