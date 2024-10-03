@@ -66,7 +66,12 @@ jobs:
       - name: Debug Print xcresult files
         run: |
           echo "xcresult files: ${{ steps.find-xcresults.outputs.xcresult_files }}"
-          
+      - name: Upload .xcresult files as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresults
+          path: artifacts/**/*.xcresult  # Adjust this if necessary
   analyze-xcresults:
     needs: build
     if: always()
@@ -75,6 +80,11 @@ jobs:
       matrix:
         xcresult_file: ${{ fromJson(needs.build.outputs.xcresult_files) }}
     steps:
+      - name: Download .xcresult files
+        uses: actions/download-artifact@v4
+        with:
+          name: xcresults
+          path: ./artifacts
       - name: test file
         run: ls -al ${{ matrix.xcresult_file }}
       - name: Analyze .xcresult file
