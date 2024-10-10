@@ -24,3 +24,9 @@ jobs:
       - name: echo
         run: |
           echo "Hello from mainv"
+  notify:
+    uses: act10ns/slack@v2.1.0
+    with: 
+      webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      status: ${{ job.status }}
+      message: "test"
