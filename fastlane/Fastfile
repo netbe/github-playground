@@ -24,4 +24,17 @@ platform :ios do
 	export_method: "development"
     )	
   end
+
+  lane :test do 
+    run_tests(
+      testplan: "Playground",
+      scheme: "Playground",
+      configuration: "Debug",
+      sdk:"iphonesimulator",
+      derived_data_path: "DerivedData",
+      result_bundle: true,
+      output_directory: "artifacts/",
+      output_types: "junit"
+    )  
+  end  
 end

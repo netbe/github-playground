@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "216695AC-F227-4FF5-8E97-4349A10DE89A",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Playground.xcodeproj",
+      "identifier" : "012444462BB79F4B004E9675",
+      "name" : "Playground"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "PlaygroundTests\/testPerformanceExample()"
+      ],
+      "target" : {
+        "containerPath" : "container:Playground.xcodeproj",
+        "identifier" : "012444582BB79F4C004E9675",
+        "name" : "PlaygroundTests"
+      }
+    }
+  ],
+  "version" : 1
+}

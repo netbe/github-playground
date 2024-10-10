@@ -1,0 +1,41 @@
+name: Test workflow PR
+
+on: 
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, synchronize, edited, ready_for_review ]
+    branches: [ 'main' ]
+
+permissions: 
+  checks: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.action != 'edited' || (
+        github.event.changes.title == null &&
+        github.event.changes.body == null &&
+        github.event.changes.assignees == null &&
+        github.event.changes.reviewers == null &&
+        github.event.changes.labels == null
+      ) && github.event.pull_request.draft == false
+    steps:
+      - name: echo
+        run: |
+          echo "Hello from mainv"
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to a Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.27.0
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          channel-id: 'test github playground'
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+            }
