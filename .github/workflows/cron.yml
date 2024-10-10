@@ -16,8 +16,8 @@ jobs:
         with:
           ref: develop
       - run: |
-        echo "Run cron"
-        ls
+          echo "Run cron"
+          ls
       - uses: ./.github/workflows/list_files.yml
         with:
           fastlane_action: appstore_col_1_restricted

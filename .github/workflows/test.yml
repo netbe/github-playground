@@ -31,11 +31,42 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.27.0
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         with:
-          channel-id: 'test github playground'
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                  {
+                      "type": "header",
+                      "text": {
+                          "type": "plain_text",
+                          "text": "New request",
+                          "emoji": true
+                      }
+                  },
+                  {
+                      "type": "section",
+                      "fields": [
+                          {
+                              "type": "mrkdwn",
+                              "text": "*Type:*\nPaid Time Off"
+                          },
+                          {
+                              "type": "mrkdwn",
+                              "text": "*Created by:*\n<example.com|Fred Enriquez>"
+                          }
+                      ]
+                  },
+                  {
+                      "type": "section",
+                      "fields": [
+                          {
+                              "type": "mrkdwn",
+                              "text": "*When:*\nAug 10 - Aug 13"
+                          }
+                      ]
+                  }
+                ]
             }
