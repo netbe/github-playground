@@ -31,7 +31,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.27.0
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         with:
           channel-id: 'test github playground'
