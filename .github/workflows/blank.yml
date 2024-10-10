@@ -21,7 +21,7 @@ jobs:
     runs-on: macos-14  
     outputs:
       out: '${{ steps.test.outputs.out }}'
-
+      xcresult_files: ${{ steps.find-xcresults.outputs.xcresult_files }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -55,7 +55,44 @@ jobs:
       - name: bundler install
         run: bundle install
       - id: build
-        run: bundle exec fastlane build
+        run: bundle exec fastlane test
+      - name: Find all .xcresult files
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        id: find-xcresults
+        run: |
+          # Find all .xcresult directories and convert them to a JSON array
+          files=`find artifacts/ -type d -name "*.xcresult" | jq -R . | jq -s .`
+          echo xcresult_files=${files} >> $GITHUB_OUTPUT
+      - name: Debug Print xcresult files
+        run: |
+          echo "xcresult files: ${{ steps.find-xcresults.outputs.xcresult_files }}"
+      - name: Upload .xcresult files as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresults
+          path: artifacts/**/*.xcresult  # Adjust this if necessary
+  analyze-xcresults:
+    needs: build
+    if: ${{ always() && github.event_name == 'pull_request' }}
+    runs-on: macos-14
+    strategy:
+      matrix:
+        xcresult_file: ${{ fromJson(needs.build.outputs.xcresult_files) }}
+    steps:
+      - name: Download .xcresult files
+        uses: actions/download-artifact@v4
+        with:
+          name: xcresults
+          path: ./artifacts
+      - name: test file
+        run: ls -al ${{ matrix.xcresult_file }}
+      - name: Analyze .xcresult file
+        uses: kronenthaler/analyze-xcoderesults-action@0.1.9
+        with:
+          results: ${{ matrix.xcresult_file }}
+          warningAnnotations: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   log:
     runs-on: macos-14
     outputs:
