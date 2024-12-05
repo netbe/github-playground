@@ -31,6 +31,10 @@ platform :ios do
   end
 
   lane :test do 
+    sh("echo \"::group::Tests\"")
+    echo "Inside group"
+    sh("echo \"::endgroup::\"")
+
     run_tests(
       testplan: "Playground",
       scheme: "Playground",
