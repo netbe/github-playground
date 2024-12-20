@@ -9,7 +9,9 @@ on:
 jobs:
   fail:
     runs-on: macos-14  
+    
     steps:
+      - uses: actions/checkout@v3
       - name: bundler install
         run: bundle install
       - id: build
