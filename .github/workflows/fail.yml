@@ -1,0 +1,19 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Fail
+
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fail:
+    runs-on: macos-14  
+    steps:
+      - name: bundler install
+        run: bundle install
+      - id: build
+        run: bundle exec fastlane test
+      - name: run fail lane
+        run: |
+          bundle exec fastlane fail
