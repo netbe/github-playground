@@ -16,9 +16,13 @@ jobs:
         run: bundle install
       - name: run fail lane
         run: |
-          bundle exec fastlane fail
+          bundle exec fastlane faily
   result:
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+      
     runs-on: macos-14
     steps:
       - name: result processing
-        run: echo "test"
+        run: echo "test ${{ matrix.version }}"
