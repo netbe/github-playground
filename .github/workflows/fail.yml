@@ -17,3 +17,8 @@ jobs:
       - name: run fail lane
         run: |
           bundle exec fastlane fail
+  result:
+    runs-on: macos-14
+    steps:
+      - name: result processing
+        run: echo "test"
