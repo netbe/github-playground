@@ -19,7 +19,7 @@ jobs:
           bundle exec fastlane faily
       - name: post
         if: always()
-        run: ech "post"
+        run: echo "post"
   result:
     needs: fail
     if: always()
