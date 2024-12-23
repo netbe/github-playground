@@ -17,8 +17,12 @@ jobs:
       - name: run fail lane
         run: |
           bundle exec fastlane faily
+      - name: post
+        if: always()
+        run: ech "post"
   result:
     needs: fail
+    if: always()
     strategy:
       matrix:
         version: [10, 12, 14]
