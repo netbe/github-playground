@@ -18,6 +18,7 @@ jobs:
         run: |
           bundle exec fastlane faily
   result:
+    needs: fail
     strategy:
       matrix:
         version: [10, 12, 14]
