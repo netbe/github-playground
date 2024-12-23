@@ -17,7 +17,11 @@ default_platform(:ios)
 
 platform :ios do
   lane :fail do
-    raise "hey"
+    begin
+	foo()
+    rescue => e
+	raise e
+    end
   end
   
   desc "Generate build"
@@ -47,8 +51,22 @@ platform :ios do
       derived_data_path: "DerivedData",
       result_bundle: true,
       output_directory: "artifacts/",
+      output_types: "junit"
+    )  
+  end  
+
+	def foo()
+
+	run_tests(
+      testplan: "Playground",
+      scheme: "Playground",
+      configuration: "Debug",
+      sdk:"iphonesimulator",
+      derived_data_path: "DerivedData",
+      result_bundle: true,
+      output_directory: "artifacts/",
       output_types: "junit",
       fail_build: false
     )  
-  end  
+	end
 end
