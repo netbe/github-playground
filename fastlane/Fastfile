@@ -20,7 +20,7 @@ platform :ios do
     begin
 	foo()
     rescue => e
-	raise e
+	UI.test_failure!("Failing running tests #{e.to_s}")
     end
   end
   
