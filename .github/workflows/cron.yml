@@ -16,7 +16,7 @@ jobs:
         with:
           ref: develop
       - run: |
-        echo "Run cron"
+        echo "Run cron";
         ls
       - uses: ./.github/workflows/list_files.yml
         with:
