@@ -16,7 +16,7 @@ jobs:
         run: bundle install
       - name: run fail lane
         run: |
-          bundle exec fastlane test
+          bundle exec fastlane fail
       - name: post
         if: always()
         run: echo "post"
