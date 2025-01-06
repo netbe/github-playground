@@ -67,7 +67,7 @@ platform :ios do
       derived_data_path: "DerivedData",
       result_bundle: true,
       output_directory: "artifacts/",
-      output_types: "junit",
+      output_types: "junit"
     )  
 	end
 end
