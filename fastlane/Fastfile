@@ -68,7 +68,6 @@ platform :ios do
       result_bundle: true,
       output_directory: "artifacts/",
       output_types: "junit",
-      fail_build: false
     )  
 	end
 end
