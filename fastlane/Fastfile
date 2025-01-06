@@ -44,7 +44,8 @@ platform :ios do
     puts "::endgroup::"
 
     run_tests(
-      testplan: "Playground",
+      step_name: "🧪 Running tests with test",
+	testplan: "Playground",
       scheme: "Playground",
       configuration: "Debug",
       sdk:"iphonesimulator",
@@ -58,6 +59,7 @@ platform :ios do
 	def foo()
 
 	run_tests(
+      step_name: "🧪 Running tests with foo()",
       testplan: "Playground",
       scheme: "Playground",
       configuration: "Debug",
