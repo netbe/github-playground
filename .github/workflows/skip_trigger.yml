@@ -12,7 +12,8 @@ env:
   RUN_CRITICAL_FLOWS: ${{ inputs.branch != 'release/cycle-3.120' }}
 jobs:
   run-tests:
+    name: Run tests
     steps:
-       - name: Install 1Password
+      - name: Install 1Password
         if: ${{ env.RUN_CRITICAL_FLOWS }}
         uses: 1password/install-cli-action@v1
