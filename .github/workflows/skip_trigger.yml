@@ -16,5 +16,6 @@ jobs:
     runs-on: Ubuntu-latest
     steps:
       - name: Install 1Password
-        if: ${{ env.RUN_CRITICAL_FLOWS }}
+        if: ${{ env.RUN_CRITICAL_FLOWS == true }}
         uses: 1password/install-cli-action@v1
+        
