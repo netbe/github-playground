@@ -13,6 +13,7 @@ env:
 jobs:
   run-tests:
     name: Run tests
+    runs-on: Ubuntu-latest
     steps:
       - name: Install 1Password
         if: ${{ env.RUN_CRITICAL_FLOWS }}
