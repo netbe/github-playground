@@ -94,7 +94,7 @@ jobs:
           warningAnnotations: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   log:
-    runs-on: macos-14
+    runs-on: macos-latest
     outputs:
       changelog-url: ${{ steps.expose-url.outputs.changelog }}
       sha256: ${{ steps.genfile.outputs.sha256 }}
@@ -138,7 +138,7 @@ jobs:
         id: expose-url
         run: echo "changelog=${{ steps.upload-file.outputs.artifact-url }}" >> $GITHUB_OUTPUT
   result:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs: log
     steps:
     - name: Output artifact url
@@ -146,7 +146,7 @@ jobs:
     - name: Output sha256
       run:  echo "sha256 ${{ needs.log.outputs.sha256 }}"
   job1:
-    runs-on: macos-14
+    runs-on: macos-latest
     outputs:
       myoutput: ${{ steps.step1.outputs.myoutput }}
     
@@ -157,7 +157,7 @@ jobs:
         echo "myoutput='hello world'" >> $GITHUB_OUTPUT
 
   job2:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs: job1
 
     steps:
